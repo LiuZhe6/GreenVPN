@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res/com.green"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:tabIndicatorColor="#63ed5a"
+                app:tabSelectedTextColor="#63ed5a">
+
+            <android.support.design.widget.TabItem
+                    android:id="@+id/connectTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="连接"/>
+
+            <android.support.design.widget.TabItem
+                    android:id="@+id/purchaseTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购买"/>
+
+            <android.support.design.widget.TabItem
+                    android:id="@+id/helpTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="帮助"/>
+
+            <android.support.design.widget.TabItem
+                    android:id="@+id/optionTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选项"/>
+        </android.support.design.widget.TabLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="#FFFFFF">
+
+       <TextView
+               android:id="@+id/connectTextView"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:text="连接"
+               android:textSize="22sp"
+               />
+
+       <TextView
+               android:id="@+id/purchaseTextView"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:text="购买"
+               android:textSize="22sp"/>
+
+       <TextView
+               android:id="@+id/helpTextView"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:text="帮助"
+               android:textSize="22sp"/>
+
+       <TextView
+               android:id="@+id/optionTextView"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:text="选项"
+               android:textSize="22sp"/>
+   </LinearLayout>-->
+
 
     <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
