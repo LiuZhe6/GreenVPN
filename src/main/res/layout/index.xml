@@ -15,8 +15,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:tabIndicatorColor="#63ed5a"
-                app:tabSelectedTextColor="#63ed5a">
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabSelectedTextColor="@color/colorAccent">
 
             <android.support.design.widget.TabItem
                     android:id="@+id/connectTab"
@@ -43,50 +43,6 @@
                     android:text="选项"/>
         </android.support.design.widget.TabLayout>
     </LinearLayout>
-
-    <!--<LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="#FFFFFF">
-
-       <TextView
-               android:id="@+id/connectTextView"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:layout_weight="1"
-               android:gravity="center"
-               android:text="连接"
-               android:textSize="22sp"
-               />
-
-       <TextView
-               android:id="@+id/purchaseTextView"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:layout_weight="1"
-               android:gravity="center"
-               android:text="购买"
-               android:textSize="22sp"/>
-
-       <TextView
-               android:id="@+id/helpTextView"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:layout_weight="1"
-               android:gravity="center"
-               android:text="帮助"
-               android:textSize="22sp"/>
-
-       <TextView
-               android:id="@+id/optionTextView"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:layout_weight="1"
-               android:gravity="center"
-               android:text="选项"
-               android:textSize="22sp"/>
-   </LinearLayout>-->
-
 
     <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
