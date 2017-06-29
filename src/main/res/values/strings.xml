@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Green</string>
+    <string name="status_disconnected">未连接</string>
+    <string name="connection_setting">连接设置</string>
+    <string name="tap_to_change_area">轻触可切换区域</string>
+    <string name="auto_select">自动选择</string>
 </resources>
