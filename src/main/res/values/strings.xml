@@ -5,4 +5,13 @@
     <string name="connection_setting">连接设置</string>
     <string name="tap_to_change_area">轻触可切换区域</string>
     <string name="auto_select">自动选择</string>
+    <string name="all_accelerated_switch">智能分流</string>
+    <string name="oversea_accelerated_mode">已开启（推荐）</string>
+    <string name="vip_deadline">账号有效期至</string>
+    <string name="check_in_intro">签到马上送免费时长</string>
+    <string name="check_in_sub_intro">签到即送，至少4小时</string>
+    <string name="solo_app_config">分应用加速</string>
+    <string name="status_close">已关闭</string>
+    <string name="faq_questions">常见问题</string>
+    <string name="need_help">联系客服</string>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MaterialSwitch">
+        <item name="sw_trackSize">16.0dp</item>
+        <item name="sw_trackCap">round</item>
+        <item name="sw_thumbRadius">10.0dip</item>
+        <item name="sw_thumbElevation">2.0dip</item>
+        <item name="sw_animDuration">@android:integer/config_shortAnimTime</item>
+        <item name="sw_interpolator">@android:anim/decelerate_interpolator</item>
+    </style>
+</resources>
