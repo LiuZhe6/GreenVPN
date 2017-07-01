@@ -23,9 +23,6 @@ class HelpFragment extends Fragment{
   private var groupList: util.ArrayList[String] = _
   private var childList : util.ArrayList[String] = _
 
-  //页面适配器
-
-
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View = {
     super.onCreateView(inflater, container, savedInstanceState)

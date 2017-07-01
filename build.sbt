@@ -21,4 +21,3 @@ libraryDependencies ++=
     "com.android.support.test.espresso" % "espresso-core" % "2.2.2" % "androidTest" ::
     Nil
 
-
