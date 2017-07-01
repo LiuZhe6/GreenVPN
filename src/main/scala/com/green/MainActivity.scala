@@ -38,7 +38,7 @@ class MainActivity extends AppCompatActivity  with TabLayout.OnTabSelectedListen
 
 
 
-  var connectFragment : ConnectFragment = _
+  var connectFragment : ConnectFragment2 = _
   var purchaseFragment : PurchaseFragment = _
   var helpFragment : HelpFragment = _
   var optionFragment : OptionFragment = _
@@ -55,7 +55,7 @@ class MainActivity extends AppCompatActivity  with TabLayout.OnTabSelectedListen
 
 
   def initView() = {
-    connectFragment  = new ConnectFragment
+    connectFragment  = new ConnectFragment2
     purchaseFragment = new PurchaseFragment
     helpFragment = new HelpFragment
     optionFragment = new OptionFragment
