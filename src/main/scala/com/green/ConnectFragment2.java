@@ -1,5 +1,6 @@
 package com.green;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.green.myUtils.SuccinctProgress;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,6 +26,8 @@ public class ConnectFragment2 extends Fragment{
     private View view;
 
     private LinearLayout regionSelectLinearLayout;
+
+    private ProgressBar progressBar;
 
 
 
@@ -48,14 +50,27 @@ public class ConnectFragment2 extends Fragment{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"点击了",Toast.LENGTH_SHORT).show();
-                new GetNodeListFromServerTask().execute("http://47.52.6.38/User/getNodeList");
+                new GetNodeListFromServerTask().execute("http://47.52.6.38/Api/User/getNodeList","113","19bd92d7a46b6a06a6b51abbe4e07488");
 
             }
         });
+
+
     }
 
     class GetNodeListFromServerTask extends AsyncTask<String,Integer,String>{
 
+
+        @Override
+        protected void onPreExecute() {
+            SuccinctProgress.showSuccinctProgress(getActivity(),null,SuccinctProgress.THEME_DOT,false,true);
+        }
+
+        /**
+         *
+         * @param strings url,uid,token
+         * @return
+         */
         @Override
         protected String doInBackground(String... strings) {
             HttpURLConnection connection = null;
@@ -64,6 +79,8 @@ public class ConnectFragment2 extends Fragment{
                 URL url = new URL(strings[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
+                DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+                out.writeBytes("uid="+strings[1]+"&token="+strings[2]);
                 connection.setConnectTimeout(8000);
                 connection.setReadTimeout(8000);
                 connection.connect();
@@ -77,6 +94,7 @@ public class ConnectFragment2 extends Fragment{
                     while ((line = reader.readLine())!=null){
                         response.append(line);
                     }
+                    return response.toString();
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -85,12 +103,13 @@ public class ConnectFragment2 extends Fragment{
             } finally {
                 connection.disconnect();
             }
-            return response.toString();
+            return "{err:-1}";
         }
 
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(getContext(),s,Toast.LENGTH_SHORT).show();
+            SuccinctProgress.dismiss();
         }
     }
 }
