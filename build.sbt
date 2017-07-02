@@ -19,5 +19,6 @@ libraryDependencies ++=
 //    "com.github.dmytrodanylyk.circular-progress-button" % "library" % "1.1.3" ::
     "com.android.support.test" % "runner" % "0.5" % "androidTest" ::
     "com.android.support.test.espresso" % "espresso-core" % "2.2.2" % "androidTest" ::
+    "com.google.code.gson" % "gson" % "2.8.1"::
     Nil
 
