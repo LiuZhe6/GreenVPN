@@ -21,11 +21,12 @@
     <content url="file://$USER_HOME$/.android/sbt/exploded-aars/com.android.support-support-core-utils-25.3.1">
       <sourceFolder url="file://$USER_HOME$/.android/sbt/exploded-aars/com.android.support-support-core-utils-25.3.1/src" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.android/sbt/exploded-aars/com.android.support-support-core-utils-25.3.1/resources" type="java-resource" />
-      <excludeFolder url="file://$USER_HOME$/.android/sbt/exploded-aars/com.android.support-support-core-utils-25.3.1/bin" />
+      <sourceFolder url="file://$USER_HOME$/.android/sbt/exploded-aars/com.android.support-support-core-utils-25.3.1/bin/generated/source" isTestSource="false" generated="true" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: com.android.support:support-annotations:25.3.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.google.code.gson:gson:2.8.1:jar" level="project" />
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
         <CLASSES>

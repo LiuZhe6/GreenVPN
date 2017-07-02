@@ -1,20 +1,27 @@
 package com.green.entity;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * Created by coder on 17-7-1.
  */
-public class Node {
+public class Node implements Serializable{
 
     //节点id
     private int nid;
 
+
     //节点名字
+    @SerializedName("node_name")
     private String nodeName;
 
     //返回IP地址
     private String address;
 
     //节点备注
+    @SerializedName("node_info")
     private String nodeInfo;
 
     //区域
@@ -27,7 +34,7 @@ public class Node {
     private String visible;
 
     //连接密码
-    private String password;
+    private String passwd;
 
     //端口
     private String port;
@@ -55,7 +62,7 @@ public class Node {
         this.area = area;
         this.status = status;
         this.visible = visible;
-        this.password = password;
+        this.passwd = password;
         this.port = port;
         this.method = method;
         this.protocol = protocol;
@@ -120,11 +127,11 @@ public class Node {
     }
 
     public String getPassword() {
-        return password;
+        return passwd;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.passwd = password;
     }
 
     public String getPort() {

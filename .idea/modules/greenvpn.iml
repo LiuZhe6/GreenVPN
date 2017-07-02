@@ -12,7 +12,9 @@
         <option name="APK_PATH" value="/../../target/android/intermediates/build_integration/greenvpn-BUILD-INTEGRATION.apk" />
         <option name="RUN_PROGUARD" value="true" />
         <proGuardCfgFiles>
-          <file>$MODULE_DIR$/../../proguard-sbt.txt</file>
+          <file>file://$MODULE_DIR$/../../proguard-sbt.txt</file>
+          <file>file://%MODULE_SDK_HOME%/tools/proguard/proguard-android.txt</file>
+          <file>file://$MODULE_DIR$/proguard-project.txt</file>
         </proGuardCfgFiles>
       </configuration>
     </facet>
@@ -87,6 +89,7 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="SBT: com.google.code.gson:gson:2.8.1:jar" level="project" />
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
         <CLASSES>
