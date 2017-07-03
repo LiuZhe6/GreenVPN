@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content"
+              android:id="@+id/node_list_layout">
 
     <LinearLayout
             android:id="@+id/item_layout"
@@ -33,6 +34,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0.0dp"
@@ -40,6 +42,7 @@
                     android:layout_weight="1.0"
                     android:paddingLeft="8.0dp"
                     android:paddingTop="16.0dp">
+
                 <TextView
                         android:id="@+id/region_name"
                         android:layout_width="match_parent"

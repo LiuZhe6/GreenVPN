@@ -153,7 +153,7 @@ public class ConnectFragment2 extends Fragment{
 
 
             //传入ArrayList
-            Intent intent = new Intent(getActivity(),RegionSelectActivity.class);
+            Intent intent = new Intent(getActivity(),SelectRegionActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("uid",user.getUid());
             bundle.putString("token",user.getToken());
@@ -161,7 +161,6 @@ public class ConnectFragment2 extends Fragment{
             intent.putExtra("bundle",bundle);
             startActivity(intent);
 
-//            Toast.makeText(getContext(),s,Toast.LENGTH_SHORT).show();
 
         }
     }

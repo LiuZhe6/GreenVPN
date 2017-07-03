@@ -6,7 +6,7 @@ package com.green.myUtils;
 public class DataSaver {
 
     //节点序号
-    public static int NODE_INDEX = -1;
+    public static int NODE_INDEX = 0;
 
 
 
