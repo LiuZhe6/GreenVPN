@@ -11,6 +11,19 @@ public class User {
 
     private String token;
 
+    private String username;
+
+    private String email;
+
+    private String connections;
+
+    //到期时间
+    private String expiration;
+
+    //免费用户或者VIP
+    private String level;
+
+
     public User() {
     }
 
@@ -47,5 +60,45 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getConnections() {
+        return connections;
+    }
+
+    public void setConnections(String connections) {
+        this.connections = connections;
+    }
+
+    public String getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }
