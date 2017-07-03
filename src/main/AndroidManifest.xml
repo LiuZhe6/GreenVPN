@@ -16,9 +16,8 @@
             </intent-filter>
         </activity>
 
-        <!--现在的-->
         <activity android:name=".SelectRegionActivity"></activity>
-
+        <activity android:name=".SignInActivity" android:theme="@style/MyDialogTheme"></activity>
 
     </application>
 </manifest>

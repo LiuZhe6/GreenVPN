@@ -15,4 +15,8 @@
     <string name="faq_questions">常见问题</string>
     <string name="need_help">联系客服</string>
     <string name="region_list">区域列表</string>
+    <string name="share_task_succeed_tips2">运气真棒！</string>
+    <string name="share_task_succeed_tip">恭喜获得 %d 积分</string>
+    <string name="ok_i_know">知道了</string>
+    <string name="recharge_credit">我要兑积分</string>
 </resources>

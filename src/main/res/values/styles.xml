@@ -68,4 +68,19 @@
         <item name="colorControlNormal">?android:textColorPrimary</item>
     </style>
 
+    <style name="MaterialDialog" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="materialDialogBackground">@color/dialog_background_dark</item>
+        <item name="materialDialogButtonBarDividerColor">@color/button_bar_divider_color_dark</item>
+        <item name="materialDialogDisabledButtonTextColor">
+            @color/dialog_button_disabled_text_color_dark
+        </item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="CustomLightTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
 </resources>
