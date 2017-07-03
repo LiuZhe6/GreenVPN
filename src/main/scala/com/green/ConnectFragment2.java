@@ -1,5 +1,6 @@
 package com.green;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,9 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.green.entity.HttpResult;
@@ -84,7 +83,7 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
                 new GetUserInfoTask().execute("http://47.52.6.38/Api/User/getUserInfo","113","40dc245fbcdc9dfbeada6e4ee750a1a5");
                 break;
             case R.id.sign_in:
-                new SignInTask().execute("http://47.52.6.38/Api/User/checkin","113","40dc245fbcdc9dfbeada6e4ee750a1a5");
+                new SignInTask().execute("http://47.52.6.38/Api/User/checkinStatus","113","40dc245fbcdc9dfbeada6e4ee750a1a5");
                 break;
             default:
                 break;
@@ -240,8 +239,16 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
             HttpResult httpResult = new HttpResult();
             try {
                 JSONObject jb = new JSONObject(s);
-                httpResult.setStatus(jb.getString("status"));
-                httpResult.setInfo(jb.getString("info"));
+                httpResult.setErr(jb.getString("err"));
+                if (Integer.parseInt(httpResult.getErr()) == 0){
+                    //进行签到
+
+                    httpResult.setStatus(jb.getString("status"));
+                    httpResult.setInfo(jb.getString("info"));
+                }else {
+                    Toast.makeText(getActivity(),"您今天已经签过啦，明天再来吧～",Toast.LENGTH_SHORT).show();
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -250,7 +257,11 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
             sb.append("status:" + httpResult.getStatus() + "\n");
             sb.append("info:" + httpResult.getInfo() + "\n");
 
-            Toast.makeText(getContext(),sb.toString(),Toast.LENGTH_SHORT).show();
+
+//            Toast.makeText(getContext(),sb.toString(),Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(),SignInActivity.class);
+            startActivity(intent);
+
 
         }
     }
