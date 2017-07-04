@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.green.entity.HttpResult;
 import com.green.entity.Node;
 import com.green.entity.User;
+import com.green.myUtils.DataSaver;
 import com.green.myUtils.SuccinctProgress;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,13 +78,13 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.region_select_button:
-                new GetNodeListFromServerTask().execute("http://47.52.6.38/Api/User/getNodeList","113","40dc245fbcdc9dfbeada6e4ee750a1a5");
+                new GetNodeListFromServerTask().execute("http://47.52.6.38/Api/User/getNodeList", DataSaver.USER.getUid(), DataSaver.USER.getToken());
                 break;
             case R.id.user_info_layout:
-                new GetUserInfoTask().execute("http://47.52.6.38/Api/User/getUserInfo","113","40dc245fbcdc9dfbeada6e4ee750a1a5");
+                new GetUserInfoTask().execute("http://47.52.6.38/Api/User/getUserInfo",DataSaver.USER.getUid(), DataSaver.USER.getToken());
                 break;
             case R.id.sign_in:
-                new SignInTask().execute("http://47.52.6.38/Api/User/checkinStatus","113","40dc245fbcdc9dfbeada6e4ee750a1a5");
+                new SignInTask().execute("http://47.52.6.38/Api/User/checkin",DataSaver.USER.getUid(), DataSaver.USER.getToken());
                 break;
             default:
                 break;
@@ -239,14 +240,18 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
             HttpResult httpResult = new HttpResult();
             try {
                 JSONObject jb = new JSONObject(s);
-                httpResult.setErr(jb.getString("err"));
-                if (Integer.parseInt(httpResult.getErr()) == 0){
-                    //进行签到
-
-                    httpResult.setStatus(jb.getString("status"));
+                httpResult.setStatus(jb.getString("status"));
+                if (httpResult.getStatus().equals("success")){
+                    //签到成功则，获取数据 并弹出对话框
                     httpResult.setInfo(jb.getString("info"));
-                }else {
-                    Toast.makeText(getActivity(),"您今天已经签过啦，明天再来吧～",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(),SignInActivity.class);
+                    intent.putExtra("info",httpResult.getInfo());
+                    startActivity(intent);
+                }else if (httpResult.getStatus().equals("error")){
+                    String  info = jb.getString("info");
+                    Toast.makeText(getActivity(),info,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(),"您已进入没有网络的异次元时代",Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {
@@ -259,8 +264,7 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
 
 
 //            Toast.makeText(getContext(),sb.toString(),Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(),SignInActivity.class);
-            startActivity(intent);
+
 
 
         }

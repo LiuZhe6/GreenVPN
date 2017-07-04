@@ -1,9 +1,11 @@
 package com.green.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by coder on 17-7-2.
  */
-public class User {
+public class User implements Serializable {
 
     private String uid;
 

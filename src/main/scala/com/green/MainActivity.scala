@@ -1,6 +1,6 @@
 package com.green
 
-import java.util
+import java.{io, util}
 
 import android.app.{ActionBar, Activity, FragmentManager}
 import android.content.Context
@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v4.view.{PagerAdapter, ViewPager}
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget._
+import com.green.entity.User
 
 class MainActivity extends AppCompatActivity  with TabLayout.OnTabSelectedListener {
   // allows accessing `.value` on TR.resource.constants
@@ -46,6 +47,8 @@ class MainActivity extends AppCompatActivity  with TabLayout.OnTabSelectedListen
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.index)
+
+
 
     //创建控件和点击事件
     initView()

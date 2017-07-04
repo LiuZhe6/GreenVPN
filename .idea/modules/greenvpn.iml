@@ -12,9 +12,7 @@
         <option name="APK_PATH" value="/../../target/android/intermediates/build_integration/greenvpn-BUILD-INTEGRATION.apk" />
         <option name="RUN_PROGUARD" value="true" />
         <proGuardCfgFiles>
-          <file>file://$MODULE_DIR$/../../proguard-sbt.txt</file>
-          <file>file://%MODULE_SDK_HOME%/tools/proguard/proguard-android.txt</file>
-          <file>file://$MODULE_DIR$/proguard-project.txt</file>
+          <file>$MODULE_DIR$/../../proguard-sbt.txt</file>
         </proGuardCfgFiles>
       </configuration>
     </facet>
