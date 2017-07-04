@@ -3,7 +3,7 @@ package com.green
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.{Button, ImageView, TextView}
+import android.widget.{Button, ImageView, TextView, Toast}
 
 /**
   * Created by coder on 17-7-3.
@@ -24,13 +24,12 @@ class SignInActivity extends AppCompatActivity with View.OnClickListener{
     cancel_button = findViewById(R.id.cancel_button).asInstanceOf[TextView]
     textView = findViewById(R.id.share_task_succeed_tip).asInstanceOf[TextView]
 
-
-    val s : String = getResources.getString(R.string.share_task_succeed_tip)
-    val str : String = String.format(s,new Integer(9999))
+    val str = getIntent.getStringExtra("info")
     textView.setText(str)
 
     cancelImageButton.setOnClickListener(this)
-
+    cancel_button.setOnClickListener(this)
+    shareButton.setOnClickListener(this)
   }
 
   /**
@@ -41,6 +40,7 @@ class SignInActivity extends AppCompatActivity with View.OnClickListener{
     view.getId match {
       case R.id.close_btn => finish()
       case R.id.cancel_button => finish()
+      case R.id.share_button => Toast.makeText(getApplicationContext,"点击了 兑积分 ",Toast.LENGTH_SHORT).show()
     }
   }
 }
