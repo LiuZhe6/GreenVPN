@@ -1,6 +1,8 @@
 package com.green;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,11 @@ public class SelectRegionActivity extends AppCompatActivity {
     //节点列表
     private ArrayList<Node> nodeList;
 
+    //SharedPreference
+    private SharedPreferences preferences;
+
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +49,10 @@ public class SelectRegionActivity extends AppCompatActivity {
         node.setNid(0);
         node.setArea("auto");
         nodeList.add(0, node);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(SelectRegionActivity.this);
+        editor = preferences.edit();
+
 
         //设置RecycleView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.region_list);
@@ -129,9 +140,12 @@ public class SelectRegionActivity extends AppCompatActivity {
                     notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(),"点击了"+nodeArrayList.get(DataSaver.NODE_INDEX).getNodeName(),
                             Toast.LENGTH_SHORT).show();
-
+                    DataSaver.NODE_NAME = nodeArrayList.get(DataSaver.NODE_INDEX).getNodeName();
+                    //写入设置到preference
+                    editor.putString("node_name",DataSaver.NODE_NAME);
+                    editor.apply();
                     break;
-            }
+             }
         }
     }
 }

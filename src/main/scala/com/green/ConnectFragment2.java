@@ -3,9 +3,11 @@ package com.green;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import com.green.myUtils.DataSaver;
 import com.green.myUtils.SuccinctProgress;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 
 import java.io.*;
@@ -39,13 +42,42 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
     //获取节点区域
     private LinearLayout regionSelectLinearLayout;
 
-    //账号有效期
+    //智能分流布局
+    private LinearLayout diffluenceLayout;
+
+    //智能分流的状态
+    private TextView diffluenceStatusTextView;
+
+    //智能分流的开关
+    private Switch diffluenceSwitch;
+
+    //账号有效期布局
     private LinearLayout userInfoLayout;
+
+    //账号有效期文本框
+    private TextView userInfoTextView;
 
     //签到
     private LinearLayout signInLayout;
 
+    //签到状态
+    private TextView signInStatusTextView;
+
+    //分应用加速
+    private LinearLayout applicationsLayout;
+
+    //分应用加速开关
+    private Switch applicationSwitch;
+
+    //分应用加速状态
+    private TextView applicationSpeedStatus;
+
     private ProgressBar progressBar;
+
+    //SharedPreference
+    private SharedPreferences preferences;
+
+    private SharedPreferences.Editor editor;
 
 
 
@@ -55,19 +87,48 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.connect,container,false);
 
         //初始化
-        init();
-
+        initView();
+        initData();
         return view;
     }
 
-    private void init() {
+    private void initData() {
+
+        //获取用户信息到期时间
+        new GetExpirationTimeTask().execute("http://47.52.6.38/Api/User/getUserInfo",DataSaver.USER.getUid(), DataSaver.USER.getToken());
+
+        //获取签到状态
+        new GetSignInStatusTask().execute("http://47.52.6.38/Api/User/checkinStatus",DataSaver.USER.getUid(),DataSaver.USER.getToken());
+    }
+
+    private void initView() {
 
         regionSelectLinearLayout = (LinearLayout) view.findViewById(R.id.region_select_button);
         regionSelectLinearLayout.setOnClickListener(this);
+        diffluenceLayout = (LinearLayout) view.findViewById(R.id.all_spec_mode_layout);
+        diffluenceStatusTextView = (TextView) view.findViewById(R.id.accelerate_mode_tv);
+        diffluenceSwitch = (Switch) view.findViewById(R.id.switch_all_accelerate);
+        diffluenceSwitch.setOnClickListener(this);
         userInfoLayout = (LinearLayout) view.findViewById(R.id.user_info_layout);
         userInfoLayout.setOnClickListener(this);
+        userInfoTextView = (TextView) view.findViewById(R.id.user_expire_date_tv);
         signInLayout = (LinearLayout) view.findViewById(R.id.sign_in);
         signInLayout.setOnClickListener(this);
+        signInStatusTextView = (TextView) view.findViewById(R.id.check_in_left_time_tv);
+        applicationsLayout = (LinearLayout) view.findViewById(R.id.application_layout);
+        applicationsLayout.setOnClickListener(this);
+        applicationSwitch = (Switch) view.findViewById(R.id.switch_solo_app_config);
+        applicationSwitch.setOnClickListener(this);
+        applicationSpeedStatus = (TextView) view.findViewById(R.id.solo_app_config_status);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        editor = preferences.edit();
+
+        //取sharedPreference中的值
+        diffluenceSwitch.setChecked(preferences.getBoolean("diffluence_switch",true));
+        applicationSwitch.setChecked(preferences.getBoolean("applications_speed_switch",false));
+        changeDiffluenceStatusTextView();
+        changeApplicationSpeedStatusTextView();
+
     }
 
     /**
@@ -80,14 +141,96 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
             case R.id.region_select_button:
                 new GetNodeListFromServerTask().execute("http://47.52.6.38/Api/User/getNodeList", DataSaver.USER.getUid(), DataSaver.USER.getToken());
                 break;
+            case R.id.switch_all_accelerate://智能分流
+                //点击的时候，实际已经取反
+                diffluenceSwitch.setChecked(diffluenceSwitch.isChecked());
+                changeDiffluenceStatusTextView();
+                editor.putBoolean("diffluence_switch",diffluenceSwitch.isChecked());
+                break;
             case R.id.user_info_layout:
                 new GetUserInfoTask().execute("http://47.52.6.38/Api/User/getUserInfo",DataSaver.USER.getUid(), DataSaver.USER.getToken());
                 break;
             case R.id.sign_in:
                 new SignInTask().execute("http://47.52.6.38/Api/User/checkin",DataSaver.USER.getUid(), DataSaver.USER.getToken());
                 break;
+            case R.id.application_layout:
+                //点击了分应用加速的Layout后，先判断switch状态
+                if (applicationSwitch.isChecked()){
+                    Intent intent = new Intent(getActivity(),ApplicationActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getContext(),"请先打开加速开关",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.switch_solo_app_config:
+                editor.putBoolean("applications_speed_switch",applicationSwitch.isChecked());
+                editor.apply();
+
+                changeApplicationSpeedStatusTextView();
+                break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 获取用户账户到期时间任务
+     */
+    class GetExpirationTimeTask extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return sendPostRequest(strings[0],strings[1],strings[2]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            User user = new User();
+            try {
+                JSONObject jb = new JSONObject(s);
+                int  err = Integer.parseInt(jb.getString("err"));
+                //没有错误则继续解析
+                if (err == 0){
+                    String data = jb.getString("data");
+                    JSONObject jsonOb = new JSONObject(data);
+
+                    user.setExpiration(jsonOb.getString("expiration"));
+                    userInfoTextView.setText(user.getExpiration());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     * 获取签到状态任务
+     */
+    class GetSignInStatusTask extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return sendPostRequest(strings[0],strings[1],strings[2]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONObject jb = new JSONObject(s);
+                int code = jb.getInt("err");
+                String data = jb.getString("data");
+                signInStatusTextView.setText(data);
+
+                //若没有领取，则改变字体颜色
+                if (code == 0){
+                    signInStatusTextView.setTextColor(0xffff4081);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -187,7 +330,6 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
         protected void onPostExecute(String s) {
             SuccinctProgress.dismiss();
 
-            HttpResult httpResult = new HttpResult();
             try {
                 JSONObject jb = new JSONObject(s);
                 int  err = Integer.parseInt(jb.getString("err"));
@@ -200,6 +342,7 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
                     user.setConnections(jsonOb.getString("connections"));
                     user.setExpiration(jsonOb.getString("expiration"));
                     user.setLevel(jsonOb.getString("level"));
+                    userInfoTextView.setText(user.getExpiration());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -247,6 +390,7 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
                     Intent intent = new Intent(getActivity(),SignInActivity.class);
                     intent.putExtra("info",httpResult.getInfo());
                     startActivity(intent);
+                    signInStatusTextView.setText("今日已领取");
                 }else if (httpResult.getStatus().equals("error")){
                     String  info = jb.getString("info");
                     Toast.makeText(getActivity(),info,Toast.LENGTH_SHORT).show();
@@ -264,8 +408,6 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
 
 
 //            Toast.makeText(getContext(),sb.toString(),Toast.LENGTH_SHORT).show();
-
-
 
         }
     }
@@ -309,6 +451,28 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
             connection.disconnect();
         }
         return "{err:-1}";
+    }
+
+    /**
+     * 根据diffluenceSwitch状态修改TextView的文字
+     */
+    public void changeDiffluenceStatusTextView(){
+        if (diffluenceSwitch.isChecked()){
+            diffluenceStatusTextView.setText("已开启 (推荐)");
+        } else {
+            diffluenceStatusTextView.setText("已关闭 (全局模式)");
+        }
+    }
+
+    /**
+     * 根据applicationSwitch的状态来修改TextView的文字
+     */
+    public void changeApplicationSpeedStatusTextView(){
+        if (applicationSwitch.isChecked()){
+            applicationSpeedStatus.setText("已打开");
+        } else {
+            applicationSpeedStatus.setText("已关闭");
+        }
     }
 
 

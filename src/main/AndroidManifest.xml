@@ -28,6 +28,6 @@
         <activity
                 android:name=".SignInActivity"
                 android:theme="@style/MyDialogTheme"></activity>
-
+        <activity android:name=".ApplicationActivity"></activity>
     </application>
 </manifest>

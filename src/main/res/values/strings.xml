@@ -63,7 +63,7 @@ Green手机版"</string>
     <string name="change_passwd">修改密码</string>
     <string name="change_passwd_succeed">密码修改成功</string>
     <string name="check_in_badly">运势不佳，再接再厉哦:(</string>
-    <string name="check_in_intro">签到马上送免费时长</string>
+    <string name="check_in_intro">免费领取时长</string>
     <string name="check_in_left_time">距离下次签到还有：%d小时</string>
     <string name="check_in_luckly">运势冲天啊，赶紧去买彩票哦:-)</string>
     <string name="check_in_normally">再接再厉，大奖就在眼前了</string>
@@ -186,7 +186,7 @@ Green手机版"</string>
     <string name="rescue_email_tip">获得积分前，需要先绑定您的Email，以后可随时通过Email找回账号，积分永不丢失</string>
     <string name="reverse">反选</string>
     <string name="revoke_vpn">服务授权被系统回收</string>
-    <string name="save">保存</string>
+    <string name="save">保存并退出</string>
     <string name="save_and_quit">保存并生效</string>
     <string name="save_app_info">正在保存信息，请稍候</string>
     <string name="security_intros">"强烈建议您尽快填写您的邮箱^_^

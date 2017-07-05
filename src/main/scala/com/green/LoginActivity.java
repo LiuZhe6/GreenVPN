@@ -163,7 +163,6 @@ class LoginTask extends AsyncTask<String, Integer, String> {
                 Toast.makeText(LoginActivity.this, info, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(LoginActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
