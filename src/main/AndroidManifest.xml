@@ -29,5 +29,7 @@
                 android:name=".SignInActivity"
                 android:theme="@style/MyDialogTheme"></activity>
         <activity android:name=".ApplicationActivity"></activity>
+
+        <activity android:name=".RunnerActivity"></activity>
     </application>
 </manifest>

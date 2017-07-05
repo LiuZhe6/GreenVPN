@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.support-animated-vector-drawable-25.3.1.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.support-animated-vector-drawable-25.3.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.support-animated-vector-drawable-25.3.1-build.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.support-animated-vector-drawable-25.3.1-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.support-appcompat-v7-25.3.1.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.support-appcompat-v7-25.3.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.android.support-appcompat-v7-25.3.1-build.iml" filepath="$PROJECT_DIR$/.idea/modules/com.android.support-appcompat-v7-25.3.1-build.iml" />

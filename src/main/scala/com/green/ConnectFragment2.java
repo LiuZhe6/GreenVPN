@@ -42,6 +42,12 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
     //获取节点区域
     private LinearLayout regionSelectLinearLayout;
 
+    //节点名称TextView
+    private TextView regionSelectTextView;
+
+    //节点图标
+    private ImageView regionIcon;
+
     //智能分流布局
     private LinearLayout diffluenceLayout;
 
@@ -92,6 +98,23 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1://选择国家节点返回的
+                if (resultCode == getActivity().RESULT_OK){
+                    String regionName = data.getStringExtra("select_region_name");
+                    int regionIconId = data.getIntExtra("select_region_icon_id",-1);
+                    if (regionIconId != -1){
+                        regionSelectTextView.setText(regionName);
+                        regionIcon.setImageResource(regionIconId);
+                    }
+
+                }
+                break;
+        }
+    }
+
     private void initData() {
 
         //获取用户信息到期时间
@@ -105,6 +128,8 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
 
         regionSelectLinearLayout = (LinearLayout) view.findViewById(R.id.region_select_button);
         regionSelectLinearLayout.setOnClickListener(this);
+        regionSelectTextView = (TextView) view.findViewById(R.id.current_region_tv);
+        regionIcon = (ImageView) view.findViewById(R.id.region_flag);
         diffluenceLayout = (LinearLayout) view.findViewById(R.id.all_spec_mode_layout);
         diffluenceStatusTextView = (TextView) view.findViewById(R.id.accelerate_mode_tv);
         diffluenceSwitch = (Switch) view.findViewById(R.id.switch_all_accelerate);
@@ -294,8 +319,7 @@ public class ConnectFragment2 extends Fragment implements View.OnClickListener {
             bundle.putString("token",user.getToken());
             bundle.putSerializable("nodeList",nodeList);
             intent.putExtra("bundle",bundle);
-            startActivity(intent);
-
+            startActivityForResult(intent,1);
 
         }
     }

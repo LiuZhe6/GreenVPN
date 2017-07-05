@@ -1,5 +1,6 @@
 package com.green;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -144,6 +145,18 @@ public class SelectRegionActivity extends AppCompatActivity {
                     //写入设置到preference
                     editor.putString("node_name",DataSaver.NODE_NAME);
                     editor.apply();
+
+
+                    Intent intent = new Intent();
+                    //如果成功启动后返回选择的序号
+
+                    intent.putExtra("select_region_name",DataSaver.NODE_NAME);
+                    String drawableName = "region_" + nodeArrayList.get(DataSaver.NODE_INDEX).getArea().toLowerCase();
+                    int picId = getResources().getIdentifier(drawableName, "drawable", getPackageName());
+                    intent.putExtra("select_region_icon_id",picId);
+                    setResult(RESULT_OK,intent);
+                    //销毁活动
+                    finish();
                     break;
              }
         }
